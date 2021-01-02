@@ -67,57 +67,20 @@
 
                             <div class="row">
                               
-                              <div class="col s12">
+                              <div class="col s12">{{-- 
                                 <div class="input-field col s12">
                                  <div id="estado" class="badge green lighten-5 green-text text-accent-4 col s12 m6 l4 offset-l8">
                                     <b>NO DISPONIBLE</b>
                                     <i class="material-icons"></i>
                                   </div>
-                                </div>   
-                                <div class="col s12"  style="margin-bottom: 1.5rem; margin-top: 1.5rem; margin-left: 0.3rem">  
+                                </div>   --}} 
+                                {{-- <div class="col s12"  style="margin-bottom: 1.5rem; margin-top: 1.5rem; margin-left: 0.3rem">  
                                   <input type="checkbox" id="img_principal" name="img_principal">
                                   <label for="img_principal">Es imagen principal</label>          
-                                </div>       
+                                </div>      --}}   
                                 <div class="col s12">
                                   <div class="input-field col s12 m6 l8">                                  
-                                    <p>Seleccione el tipo de alineación del contenido a mostrar</p>                                  
-                                  </div>  
-                                  
-                                  <div class="col s12 m6 l4">
-                                    <label for="idmodelo">Alineación</label>
-                                    <select id="alineacion" class="browser-default" name="alineacion" data-error=".errorTxt1"> 
-                                      <option value="" disabled="" selected="">Seleccionar</option>
-                                      <option value="center-align">CENTRO</option>
-                                      <option value="left-align">IZQUIERDA</option>
-                                      <option value="right-align">DERECHA</option>
-                                    </select> 
-                                  </div>           
-                                </div> 
-                                {{-- <div class="col s12" style="padding-bottom: 10px; padding-top: 10px">
-                                  <div class="input-field col s12 m6 l8">                                  
-                                    <p>Seleccione el margen del contenido con respecto a la cabecera de la página web</p>                                  
-                                  </div>  
-                                  
-                                  <div class="col s12 m6 l4">
-                                    <label for="idmodelo">Margen en píxeles</label>
-                                    <p class="range-field">
-                                      <input type="range" name="padding_top" min="15" max="200" class="active">
-                                    </p>
-                                  </div>           
-                                </div>     
-                                <div class="col s12" style="padding-bottom: 10px; padding-top: 10px"> 
-                                  <div class="input-field col s12 m6 l8">                                  
-                                    <p>Ingrese el código de un color que se muestra en la sección de la paleta de colores</p>
-                                  </div>                                    
-                                  <div class="col s12 m6 l4">
-                                    <label for="color">Color</label>
-                                    <input id="color" name="color" type="text" data-error=".errorTxt2" minlength="7" maxlength="100">
-                                    
-                                  </div> 
-                                </div>  --}} 
-                                <div class="col s12">
-                                  <div class="input-field col s12 m6 l8">                                  
-                                    <p>Mostrar botón para la redirección del contenido mostrado</p>                                  
+                                    <p>Activar la redirección del contenido mostrado</p>                                  
                                   </div>  
                                   
                                   <div class="col s12 m6 l4">
@@ -128,33 +91,13 @@
                                       <option value="0">NO</option>                                      
                                     </select> 
                                   </div>           
-                                </div>     
-                                {{-- <div class="col s12" style="padding-bottom: 10px; padding-top: 10px"> 
-                                  <div class="input-field col s12 m6 l8">                                  
-                                    <p>Ingrese el código de un color que se muestra en la sección de la paleta de colores para el botón </p>
-                                  </div>                                    
-                                  <div class="col s12 m6 l4">
-                                    <label for="btn_color">Color</label>
-                                    <input id="btn_color" name="btn_color" type="text" data-error=".errorTxt2" minlength="7" maxlength="100" value="">
-                                    
-                                  </div> 
-                                </div>   --}} 
+                                </div>    
                                 <div class="col s12" style="padding-bottom: 10px; padding-top: 10px"> 
                                   <div class="input-field col s12 m6 l8">                                  
-                                    <p>Ingrese el texto para mostrar en  el botón</p>
+                                    <p>Ingrese el código del Libro para realizar el enlace con el botón</p>
                                   </div>                                    
                                   <div class="col s12 m6 l4">
-                                    <label for="btn_text">Texto</label>
-                                    <input id="btn_text" name="btn_text" type="text" data-error=".errorTxt2" minlength="7" maxlength="100"  >
-                                    
-                                  </div> 
-                                </div>     
-                                <div class="col s12" style="padding-bottom: 10px; padding-top: 10px"> 
-                                  <div class="input-field col s12 m6 l8">                                  
-                                    <p>Ingrese el código del curso para realizar el enlace con el botón</p>
-                                  </div>                                    
-                                  <div class="col s12 m6 l4">
-                                    <label for="btn_idprod">Cod. Curso</label>
+                                    <label for="btn_idprod">Cod. Libro</label>
                                     <input id="btn_idprod" name="btn_idprod" type="text" data-error=".errorTxt2" maxlength="11" value="">
                                     
                                   </div> 
@@ -184,7 +127,7 @@
               </div>
   </div>
 </div>
-@include('forms.inicio.carrusel.modalAddCursos')
+@include('forms.inicio.carrusel.modalAddLibros')
 
 <br><br><br>
 @endsection

@@ -48,12 +48,14 @@
                         <div class="desktop-checkout">
                           <ul>
                             <li>
-                              <a class="userinfo-toggle" href="/account">
+                              <a class="userinfo-toggle" href="{{url('/login')}}">
                               Cuenta
                               </a>
                             </li>
-                            <li><a class="trackorder" href="#">Treguimiento Orden</a></li>
-                            <li><a class="checkout" href="/checkout">Checkout</a></li>
+                    <li><a class="trackorder" href="#">Seguimiento Orden</a></li>
+
+
+                    <li><a class="checkout" href="#">Checkout</a></li>
                           </ul>
                         </div>
                       </div>
@@ -146,28 +148,40 @@
                                     <span class="cart-qty"></span>
                                   </span>
                                   <span class="cart-price text-content hidden-lg-down">
-                                  <span class="main-title">Shopping Cart</span>
+                                  <span class="main-title">carrito</span>
                                   <span class="cart-count sub-title hide">
-                                  <span class="cart-qty"></span>
+                                  <span class="cart-qty">20</span>
                                   <span class="cart-items">Items</span>
                                   </span>
                                   </span>
                                 </div>
                               </div>
                               <div id="cart-container" class="cart-dropdown-inner cart-dropdown collapse">
-                                <div class="cart-container-inner" data-section-id="header-top" data-section-type="cart-template">
-                                  <div class="product-list"></div>
+                                <div class="cart-container-inner" data-section-id="header-top" data-section-type="cart-template">  
+
+                                <div class="product-list" style="overflow: hidden; width: auto;">
+                                  <div class="product">
+                                    <div class="product-img">
+                                      <img src="https://cdn.shopify.com/s/files/1/0267/2073/1222/products/14_5817d3fb-ee6f-481a-83cc-8935cb45a72f.png?v=1602668724" alt="Franny De Zooey"  >
+                                    </div>
+                                    <div class="product-data">
+                                      <a href="/products/franny-de-zooey?variant=33296999972950" class="product-title">Franny De Zooey</a>
+                                      <span class="product-price">1 x $75.00</span>
+                                    </div>
+                                    <a class="remove" data-variantid="33296999972950"><i class="material-icons">delete</i></a>
+                                  </div>  
+                                </div> 
                                   <div class="cart__footer">
                                     <div class="grid">
                                       <div class="grid__item ">
                                         <div>
                                           <span class="cart__subtotal-title">Subtotal</span>
-                                          <span class="cart__subtotal"></span>
+                                          <span class="cart__subtotal"> </span>
                                         </div>
-                                        <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
+                                        <div class="cart__shipping">Gastos de envío e impuestos calculados al finalizar la compra</div>
                                         <div class="cart-links">
                                           <a class="btn checkout-btn" href="/checkout">CHECKOUT</a>
-                                          <a class="view-cart btn" href="/cart">Your Cart</a>
+                                          <a class="view-cart btn" href="/cart">TU CARRITO</a>
                                         </div>
                                       </div>
                                     </div>
@@ -180,6 +194,29 @@
                                   </div>
                                 </div>
                               </div>
+
+                              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             </div>
                           </div>
                         </div>
@@ -193,6 +230,49 @@
                       </div>
                     </div>
                   </div>
+                  <script>
+                    function lanzadera(){
+                            console.log('ingreso a kllenar car');  
+                            var carritoPro = <?php echo json_encode ($carritoDet); ?> 
+                            var totalCarrito = <?php echo json_encode ($total); ?> 
+                            var url ="#"; 
+                            console.log(carritoPro); 
+                            var productList = $("#cart-container .product-list");
+                            productList.html('');
+                            var cartempty = $("#cart-container .cart__empty");
+                            var cartfooter = $("#cart-container .cart__footer");
+                            $('.cart__subtotal').html(Shopify.formatMoney(totalCarrito, Shopify.money_format));
+                            $('.cart-qty').html(carritoPro.length);
+                            if(carritoPro.length > 0) {  
+                              for (y=0;y<carritoPro.length; y++) {   
+                                 var product =$("<div class='product'></div>");
+                                  var productimg =$("<div class='product-img'></div>"); 
+                                  var productdata =$("<div class='product-data'></div>");
+                                   productimg.append("<img src='"+carritoPro[y].img_producto+"' alt='"+carritoPro[y].nombre_producto+"''>");
+                                  productdata.append("<a href='" + url + "' class='product-title'>" +carritoPro[y].nombre_producto+ "</a>");
+                                  productdata.append("<span class='product-price'>" + carritoPro[y].cantidad + " x "+ Shopify.formatMoney(carritoPro[y].precio, Shopify.money_format)+ "</span>");
+                                  product.append(productimg);
+                                  product.append(productdata);
+                                  product.append("<a class='remove' data-variantid=" +carritoPro[y].item+ "><i class='material-icons'>delete</i></a>")
+                                  productList.append(product); 
+                              } 
+                              cartfooter.removeClass('hide');
+                              productList.removeClass('hide');
+                              cartempty.addClass('hide');
+                              productList.slimScroll({
+                                height: carritoPro.length > 1 ? '262px' : '100%'
+                              });
+                            } else {
+                                cartempty.removeClass('hide');
+                                cartfooter.addClass('hide');
+                                productList.addClass('hide');
+                            }
+
+ 
+}
+    
+lanzadera();
+                  </script>
                   <div class="mobile-width hidden-lg-up">
                     <div class="page-width">
                       <div class="row">
@@ -236,14 +316,14 @@
                 <div id="shopify-section-Ishi_megamenu" class="shopify-section">
                   <div data-section-id="Ishi_megamenu" data-section-type="megamenu-section" data-toggle="toggle" class="megamenu-section hidden-lg-down">
                     <div id="_desktop_top_menu" class="menu js-top-menu hidden-sm-down" role="navigation">
-                      <h2 class="home-title hidden-lg-down">ALL CATEGORIES</h2>
+                      <h2 class="home-title hidden-lg-down">TODAS LAS CATEGORÍAS</h2>
                       <div class="wrapper-menu">
                         <div class="line-menu half start"></div>
                         <div class="line-menu"></div>
                         <div class="line-menu half end"></div>
                       </div>
                       <ul class="top-menu" id="top-menu">
-                        <li class="category">
+                        {{-- <li class="category">
                           <span class="float-xs-right hidden-lg-up">
                           <span data-target="#_n_child-one1" data-toggle="collapse" class="navbar-toggler collapse-icons clearfix collapsed">
                           <i class="material-icons add">&#xE313;</i>
@@ -440,284 +520,7 @@
                               </div>
                             </div>
                           </div>
-                        </li>
-                        <li class="category">
-                          <span class="float-xs-right hidden-lg-up">
-                          </span>
-                          <a href="/collections" class="dropdown-item">
-                            <h3 class="title">Collection</h3>
-                          </a>
-                        </li>
-                        <li class="category">
-                          <span class="float-xs-right hidden-lg-up">
-                          <span data-target="#_n_child-one3" data-toggle="collapse" class="navbar-toggler collapse-icons clearfix collapsed">
-                          <i class="material-icons add">&#xE313;</i>
-                          <i class="material-icons remove">&#xE316;</i>
-                          </span>
-                          </span>
-                          <a href="/collections/history-book" class="dropdown-item">
-                            <h3 class="title">Accessories</h3>
-                            <i class="material-icons add hidden-lg-down">&#xE315;</i>
-                          </a>
-                          <div class="popover sub-menu js-sub-menu collapse" id="_n_child-one3">
-                            <ul class="top-menu mainmenu-dropdown">
-                              <li class="sub-category">
-                                <span class="float-xs-right hidden-lg-up">
-                                <span data-target="#_n_grand-child-one3" data-toggle="collapse" class="navbar-toggler collapse-icons clearfix collapsed">
-                                <i class="material-icons add">&#xE313;</i>
-                                <i class="material-icons remove">&#xE316;</i>
-                                </span>
-                                </span>
-                                <a href="/collections/history-book" class="dropdown-item dropdown-submenu">
-                                  <h3 class="inner-title">History Book</h3>
-                                </a>
-                                <div class="top-menu collapse" id="_n_grand-child-one3">
-                                  <ul class="top-menu">
-                                    <li class="category">
-                                      <a href="/collections/history-book" class="dropdown-item">Persepolis</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/history-book" class="dropdown-item">Genghis Khan</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/history-book" class="dropdown-item">Trick Mirror</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/history-book" class="dropdown-item">Mary Beard</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/history-book" class="dropdown-item">Medieval</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/history-book" class="dropdown-item">Devil</a>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </li>
-                              <li class="sub-category">
-                                <span class="float-xs-right hidden-lg-up">
-                                <span data-target="#_n_grand-child-two3" data-toggle="collapse" class="navbar-toggler collapse-icons clearfix collapsed">
-                                <i class="material-icons add">&#xE313;</i>
-                                <i class="material-icons remove">&#xE316;</i>
-                                </span>
-                                </span>
-                                <a href="/collections/biographies-book" class="dropdown-item dropdown-submenu">
-                                  <h3 class="inner-title">Biographies Book</h3>
-                                </a>
-                                <div class="top-menu collapse" id="_n_grand-child-two3">
-                                  <ul class="top-menu">
-                                    <li class="category">
-                                      <a href="/collections/biographies-book" class="dropdown-item">Ethnic & Cultural</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/biographies-book" class="dropdown-item">Wings Of Fire</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/biographies-book" class="dropdown-item">Leaders People</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/biographies-book" class="dropdown-item">Military</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/biographies-book" class="dropdown-item">Nelson Mandela</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/biographies-book" class="dropdown-item">Einstein</a>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </li>
-                              <li class="sub-category product_container hidden-lg-down">
-                                <a href="/products/franny-de-zooey" class="dropdown-item dropdown-submenu">
-                                  <h3 class="inner-title">New Product</h3>
-                                </a>
-                                <div class="grid__item grid__item--Ishi_megamenu">
-                                  <div class="grid-view-item__link grid-view-item__image-container">
-                                    <div class="grid-view-item__image-wrapper js">
-                                      <a href="/products/franny-de-zooey">
-                                        <div class="image-inner">
-                                          <div class="reveal">
-                                            <img
-                                              class="grid-view-item__image lazyload  main-img "
-                                              src="img/14_5817d3fb-ee6f-481a-83cc-8935cb45a72f_130x168.png"
-                                              alt="Franny De Zooey">
-                                          </div>
-                                          <div class="hide imgurl-for-quickview">
-                                            <span>img/14_5817d3fb-ee6f-481a-83cc-8935cb45a72f_370x480.png</span>
-                                            <span>img/15_8a01d1b7-8688-4839-b06a-c7dc65ce6178_370x480.png</span>
-                                            <span>img/16_92e550af-5a07-4126-a2ee-cc57add7eb56_370x480.png</span>
-                                            <span>img/17_48ac954c-1710-40c5-bf8b-5693ae7e29a1_370x480.png</span>
-                                            <span>img/18_a05d0bb0-8193-4a11-9b51-d4d2c6a7b11f_370x480.png</span>
-                                            <span>img/19_4bbf2392-2385-4a7b-a2a3-ce179b76b1b4_370x480.png</span>
-                                            <span>img/20_d51070a4-e477-4218-a7e9-394368cd85d6_370x480.png</span>
-                                          </div>
-                                        </div>
-                                      </a>
-                                    </div>
-                                    <div class="product-description">
-                                      <div class="product-detail">
-                                        <div class="h4 grid-view-item__title">Franny De Zooey</div>
-                                      </div>
-                                      <div class="grid-view-item__meta">
-                                        <!-- snippet/product-price.liquid -->
-                                        <!-- <div class="flags">
-                                          <div class="new-lbl">
-
-
-
-                                              new
-                                          </div>
-                                          <div class="sale-lbl">
-                                          </div>
-                                          </div> -->
-                                        <span class="visually-hidden">Regular price</span>
-                                        <span class="original is-bold qv-regularprice">$75.00</span>
-                                      </div>
-                                    </div>
-                                    <noscript>
-                                      <img class="grid-view-item__image" src="//cdn.shopify.com/s/files/1/0267/2073/1222/products/14_5817d3fb-ee6f-481a-83cc-8935cb45a72f.png?v=1602668724" alt="Franny De Zooey" style="max-width: 0.0px;">
-                                    </noscript>
-                                  </div>
-                                </div>
-                              </li>
-                            </ul>
-                          </div>
-                        </li>
-                        <li class="category">
-                          <span class="float-xs-right hidden-lg-up">
-                          </span>
-                          <a href="/blogs/book" class="dropdown-item">
-                            <h3 class="title">Blogs</h3>
-                          </a>
-                        </li>
-                        <li class="category">
-                          <span class="float-xs-right hidden-lg-up">
-                          <span data-target="#_n_child-one5" data-toggle="collapse" class="navbar-toggler collapse-icons clearfix collapsed">
-                          <i class="material-icons add">&#xE313;</i>
-                          <i class="material-icons remove">&#xE316;</i>
-                          </span>
-                          </span>
-                          <a href="/collections/biographies-book" class="dropdown-item">
-                            <h3 class="title">Category</h3>
-                            <span class="sale">SALE</span>
-                            <i class="material-icons add hidden-lg-down">&#xE315;</i>
-                          </a>
-                          <div class="popover sub-menu js-sub-menu collapse" id="_n_child-one5">
-                            <ul class="top-menu mainmenu-dropdown">
-                              <li class="sub-category">
-                                <span class="float-xs-right hidden-lg-up">
-                                <span data-target="#_n_grand-child-one5" data-toggle="collapse" class="navbar-toggler collapse-icons clearfix collapsed">
-                                <i class="material-icons add">&#xE313;</i>
-                                <i class="material-icons remove">&#xE316;</i>
-                                </span>
-                                </span>
-                                <a href="/collections/biographies-book" class="dropdown-item dropdown-submenu">
-                                  <h3 class="inner-title">Biographies Book</h3>
-                                </a>
-                                <div class="top-menu collapse" id="_n_grand-child-one5">
-                                  <ul class="top-menu">
-                                    <li class="category">
-                                      <a href="/collections/biographies-book" class="dropdown-item">Ethnic & Cultural</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/biographies-book" class="dropdown-item">Wings Of Fire</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/biographies-book" class="dropdown-item">Leaders People</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/biographies-book" class="dropdown-item">Military</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/biographies-book" class="dropdown-item">Nelson Mandela</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/biographies-book" class="dropdown-item">Einstein</a>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </li>
-                              <li class="sub-category">
-                                <span class="float-xs-right hidden-lg-up">
-                                <span data-target="#_n_grand-child-two5" data-toggle="collapse" class="navbar-toggler collapse-icons clearfix collapsed">
-                                <i class="material-icons add">&#xE313;</i>
-                                <i class="material-icons remove">&#xE316;</i>
-                                </span>
-                                </span>
-                                <a href="/collections/comics-book" class="dropdown-item dropdown-submenu">
-                                  <h3 class="inner-title">Comics Book</h3>
-                                </a>
-                                <div class="top-menu collapse" id="_n_grand-child-two5">
-                                  <ul class="top-menu">
-                                    <li class="category">
-                                      <a href="/collections/comics-book" class="dropdown-item">Dark Horse</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/comics-book" class="dropdown-item">DC Comics</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/comics-book" class="dropdown-item">Marvel Comics</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/comics-book" class="dropdown-item">Fantasy</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/comics-book" class="dropdown-item">Comic Strips</a>
-                                    </li>
-                                    <li class="category">
-                                      <a href="/collections/comics-book" class="dropdown-item">Batman Comics</a>
-                                    </li>
-                                  </ul>
-                                </div>
-                              </li>
-                            </ul>
-                            <div class="img-container">
-                              <div class="col-xs-12 imagecontainer1">
-                                <a href="/" class="link">
-                                <img
-                                  class="feature-row__image"
-                                  src="//cdn.shopify.com/s/files/1/0267/2073/1222/files/menubanner3_600x150.png?v=1602739823"
-                                  data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
-                                  data-aspectratio="4.0"
-                                  data-sizes="auto"
-                                  alt="" >
-                                </a>
-                              </div>
-                              <div class="col-xs-6 imagecontainer2">
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="category">
-                          <span class="float-xs-right hidden-lg-up">
-                          </span>
-                          <a href="/pages/contact" class="dropdown-item">
-                            <h3 class="title">Contact</h3>
-                          </a>
-                        </li>
-                        <li class="category">
-                          <span class="float-xs-right hidden-lg-up">
-                          </span>
-                          <a href="/pages/faqs" class="dropdown-item">
-                            <h3 class="title">FAQs</h3>
-                            <span class="hot">HOT</span>
-                          </a>
-                        </li>
-                        <li class="category">
-                          <span class="float-xs-right hidden-lg-up">
-                          </span>
-                          <a href="/pages/about-us" class="dropdown-item">
-                            <h3 class="title">About Us</h3>
-                            <span class="new"> NEW</span>
-                          </a>
-                        </li>
-                        <li class="category">
-                          <span class="float-xs-right hidden-lg-up">
-                          </span>
-                          <a href="/collections/furniture-1" class="dropdown-item">
-                            <h3 class="title">History Book</h3>
-                          </a>
-                        </li>
+                        </li> --}}
                       </ul>
                     </div>
                   </div>
@@ -863,26 +666,29 @@
                     </div>
                     <div class="typed"></div>
                   </div>
-                  <div class="offerstitle">
+                    <div class="offerstitle">
                     <a href="/collections/books">
-                    <span class="type-text">Flat 20% Off On Every Item</span>
+
+                        <span class="type-text">Hoy 20% de Descuento.</span>
+
                     </a>
-                  </div>
-                  <div class="offerstitle">
+                    </div>
+
+                    <div class="offerstitle">
                     <a href="/collections/comics-book">
-                    <span class="type-text">Get 15% Off On History Book</span>
+
+                        <span class="type-text">Obten 15% de Descuento por la segunda compra.</span>
+
                     </a>
-                  </div>
-                  <div class="offerstitle">
-                    <a href="/collections/comics-book">
-                    <span class="type-text">Flat 10% Off On Comics Book</span>
-                    </a>
-                  </div>
-                  <div class="offerstitle">
+                    </div>
+
+                    <div class="offerstitle">
                     <a href="/collections/books">
-                    <span class="type-text">Get 25% Discount On Weekend</span>
+
+                        <span class="type-text">Obten 25% de descuento fines de semana.</span>
+
                     </a>
-                  </div>
+                    </div>
                   <script type="text/javascript">
                     $(document).ready(function () {
                       var list = new Array();

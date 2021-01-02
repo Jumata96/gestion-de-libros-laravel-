@@ -4,7 +4,7 @@
 	</div>
 	<div class="modal-footer indigo lighten-4">
 		<a href="#" class="waves-effectwaves-light btn-flat modal-action modal-close">Cancelar</a>
-		<a href="{{url('/Avisos/eliminar')}}/{{$datos->codigo}}" id="eliminar" class="waves-effect waves-light btn-flat modal-action modal-close">Aceptar</a>
+		<a href="{{url('/editorial/eliminar')}}/{{$datos->codigo}}" id="eliminar" class="waves-effect waves-light btn-flat modal-action modal-close">Aceptar</a>
 	</div>
 </div>
 

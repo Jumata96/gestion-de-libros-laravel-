@@ -75,7 +75,7 @@
                   <td><?php echo $datos->titulo ?></td>
                   <td><?php echo $datos->fecha_creacion ?></td>
                   <td  class="center">
-                    @if($datos->estado == 0)
+                    @if($datos->estado == 2)
                     <div id="estado" class="badge grey darken-2 white-text text-accent-5" >
                       <b>NO DISPONIBLE</b>
                       <i class="material-icons"></i>

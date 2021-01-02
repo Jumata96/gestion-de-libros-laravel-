@@ -5,13 +5,13 @@
 			</div> 
 			<div class="row card-header sub-header"  >
 				<div class="col s12 m12 herramienta">   
-					<center><h5>LISTA DE CURSOS</h5></center>  
+					<center><h5>LISTA DE LIBROS</h5></center>  
 				</div>   
 			</div>
 					<div class="row cuerpo">
 						<?php  
 						$bandera = false; 
-						if (count($cursos) > 0) {
+						if (count($libros) > 0) {
 							# code...
 							$bandera = true;
 							$i = 0;
@@ -19,7 +19,7 @@
 						?>  
 						<div class="row">  
 								<div class="card-content">
-									Existen <?php echo ($bandera)? count($cursos) : 0; ?> registros. <br><br>
+									Existen <?php echo ($bandera)? count($libros) : 0; ?> registros. <br><br>
 									<table id={{ ($bandera)? "data-table-simple" : "" }} class="responsive-table display" cellspacing="0">
 										<thead>
 											<tr>
@@ -44,7 +44,7 @@
 										<tbody>
 											<tr>
 											<?php 
-													foreach ($cursos as $datos) {
+													foreach ($libros as $datos) {
 													$i++;
 												?>
 												<td><?php echo $i; ?></td> 

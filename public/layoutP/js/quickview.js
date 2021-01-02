@@ -1,7 +1,9 @@
+const { forEach } = require("lodash");
+
 //QuicView JS
 jQuery(document).ready(function ($) {
   /**
-  option1:x 
+  option1:x
   option2:white
   **/
   var currentVariants = {};
@@ -20,7 +22,7 @@ jQuery(document).ready(function ($) {
   **/
   var variantAvailability = [];
   var multipleSelection = false;
-  
+
   $(document).on('click','.quick-view',function () {
     currentVariants = {};
     availableVariants = [];
@@ -34,7 +36,7 @@ jQuery(document).ready(function ($) {
     var productRating = product.find('.spr-badge').html();
     var productDiscount = product.find('.discount-percentage').html();
     var productQuantity = product.find('.qv-cartmain').html();
-    
+
     $('#main-thumbnail').attr('src',product.find('.imgurl-for-quickview span').first().text());
       product.find('.imgurl-for-quickview span').each(function(index){
         var html = "<div class='thumb-item'><img src='"+$(this).text()+"'></div>";
@@ -42,11 +44,11 @@ jQuery(document).ready(function ($) {
       });
     $('#qv-productname').html(productName);
     $('#qv-productprice').html(productPrice);
-    $('#qv-spr-badge').html(productRating);    
-    $('#qv-productdescription').html(productDescription);   
+    $('#qv-spr-badge').html(productRating);
+    $('#qv-productdescription').html(productDescription);
     $('#qv-discount').html(productDiscount);
     $('#qv-quantity').html(productQuantity);
-  
+
     multipleSelection = $('#qv-quantity .selector-wrapper').length > 0;
     if(multipleSelection) {
       loadAvailableQuickViewVariants();
@@ -87,16 +89,16 @@ jQuery(document).ready(function ($) {
         $(".cart-display .cart-title").attr("aria-expanded", "false");
       }
   });
-   
+
     $(document).on("click",".ishi-product-swatch .ishi-custom-swatch .custom-swatch",function() {
     $(this).parent().find('.custom-swatch').removeClass("active");
     $(this).addClass("active");
     var selectorID = $(this).parent().data("selector");
     var index = $(this).data("index");
-    $('#' + selectorID + ' option').eq(index).prop('selected', true).trigger('change'); 
+    $('#' + selectorID + ' option').eq(index).prop('selected', true).trigger('change');
   });
-  
-  
+
+
   $(document).on("click",".ishi-quickview-swatch .ishi-custom-swatch .custom-swatch",function() {
     $(this).parent().find('.custom-swatch').removeClass("active");
     $(this).addClass("active");
@@ -145,10 +147,10 @@ jQuery(document).ready(function ($) {
          $(this).removeAttr('selected', 'selected');
     });
     $('#qv-quantity select[name="id"] option').eq(backupIndex).prop("selected", "selected");
-    
+
     $('#qv-productprice span.qv-regularprice').text($('#qv-quantity select[name="id"] option').eq(backupIndex).data("price"));
     $('#qv-productprice span.qv-discountprice').text($('#qv-quantity select[name="id"] option').eq(backupIndex).data("compareatprice"));
-    
+
 
     if(available) {
       $('#quickviewModal .qv-addToCart').addClass('enable');
@@ -173,6 +175,7 @@ jQuery(document).ready(function ($) {
   function qvAddToCart() {
     var variantID = $('#qv-quantity select[name="id"] option:selected').val();
     var qty =  $('#qv-quantity input[name="quantity"]').val();
+    console.log('llego a varoane');
 
       $('.qv-addToCart span.instock').hide();
       $('.qv-addToCart span.outstock').hide();
@@ -190,28 +193,84 @@ jQuery(document).ready(function ($) {
 });
 
 function productAddToCart(varID,qty) {
-  jQuery.ajax({
-    type: "post",
-    url: "/cart/add.js",
-    data: "quantity=" + qty + "&id=" + varID,
-    dataType: "json",
-    success: function(n) {
-      var imessage = $("#cartmessage .title-success").text();
-      var url = "<a href="+ n.url + ">" + n.title +"</a>"; 
-      imessage += url + " - "+ n.quantity + " x "+ Shopify.formatMoney(n.discounted_price, Shopify.money_format);
-      $.notify({message:imessage},{type:"success",offset:0,placement:{from:"top",align:"center"},z_index: 9999,animate:{enter:"animated fadeInDown",exit:"animated fadeOutUp"},template:'<div data-notify="container" class="col-xs-12 alert alert-{0}" role="alert"><button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button><span data-notify="icon"></span> <span data-notify="title">{1}</span> <span data-notify="message">{2}</span><div class="progress" data-notify="progressbar"><div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div><a href="{3}" target="{4}" data-notify="url"></a></div>'});
-      adjustCartDropDown();
-      $('.qv-addToCart span.instock').show();
-      $('.qv-addToCart span.adding').hide();
-      $('.nm-addToCart').removeClass('adding');
-    },
-    error: function(n, r) {
-      var imessage = $("#cartmessage .title-failed").text();
-      imessage += n.responseJSON.description;
-      $.notify({message:imessage},{type:"danger",offset:0,placement:{from:"top",align:"center"},z_index: 9999,animate:{enter:"animated fadeInDown",exit:"animated fadeOutUp"},template:'<div data-notify="container" class="col-xs-12 alert alert-{0}" role="alert"><button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button><span data-notify="icon"></span> <span data-notify="title">{1}</span> <span data-notify="message">{2}</span><div class="progress" data-notify="progressbar"><div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div><a href="{3}" target="{4}" data-notify="url"></a></div>'});
-      $('.qv-addToCart span.instock').show();
-      $('.qv-addToCart span.adding').hide();
-      $('.nm-addToCart').removeClass('adding');
-    }
-  });
+  // console.log('datos del producto ->',varID,qty);
+          $.ajax({
+            url: "{{ url('/libros/pedido') }}",
+            type:"POST",
+            beforeSend: function (xhr) {
+                var token = $('meta[name="csrf-token"]').attr('content');
+
+                if (token) {
+                      return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                }
+            },
+           type:'POST',
+           url:"/lacasadelderecho/public/libros/pedido",
+           data: "quantity=" + qty + "&id=" + varID,
+           dataType: "json",
+
+           success:function(data){
+
+              var url='e';
+
+              var title =data.nombre;
+              var discounted_price =data.precio;
+              var quantity =data.quantity;
+              var variant_id = 2;
+              var image=data.imagen;
+              var e=data.carritoDet;
+              var totalcar=null;
+               totalcar= parseFloat(data.total);
+                  var imessage = $("#cartmessage .title-success").text();
+                  var url = "<a href="+ url + ">" + title +"</a>";
+                  imessage += url + " - "+ quantity + " x "+ Shopify.formatMoney(discounted_price, Shopify.money_format);
+                  $.notify({message:imessage},{type:"success",offset:0,placement:{from:"top",align:"center"},z_index: 9999,animate:{enter:"animated fadeInDown",exit:"animated fadeOutUp"},template:'<div data-notify="container" class="col-xs-12 alert alert-{0}" role="alert"><button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button><span data-notify="icon"></span> <span data-notify="title">{1}</span> <span data-notify="message">{2}</span><div class="progress" data-notify="progressbar"><div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div><a href="{3}" target="{4}" data-notify="url"></a></div>'});
+                  // adjustCartDropDown();
+                  $('.qv-addToCart span.instock').show();
+                  $('.qv-addToCart span.adding').hide();
+                  $('.nm-addToCart').removeClass('adding');
+
+
+                          var productList = $("#cart-container .product-list");
+                            productList.html('');
+                            var cartempty = $("#cart-container .cart__empty");
+                            var cartfooter = $("#cart-container .cart__footer");
+                            $('.cart__subtotal').html(Shopify.formatMoney(totalcar.toFixed(2), Shopify.money_format));
+                            $('.cart-qty').html(e.length);
+                            if(e.length > 0) {
+                              for (y=0;y<e.length; y++) {
+                                 var product =$("<div class='product'></div>");
+                                  var productimg =$("<div class='product-img'></div>");
+                                  var productdata =$("<div class='product-data'></div>");
+                                   productimg.append("<img src='"+e[y].img_producto+"' alt='"+e[y].nombre_producto+"''>");
+                                  productdata.append("<a href='" + url + "' class='product-title'>" +e[y].nombre_producto+ "</a>");
+                                  productdata.append("<span class='product-price'>" + e[y].cantidad + " x "+ Shopify.formatMoney(e[y].precio, Shopify.money_format)+ "</span>");
+                                  product.append(productimg);
+                                  product.append(productdata);
+                                  product.append("<a class='remove' data-variantid=" +e[y].item+ "><i class='material-icons'>delete</i></a>")
+                                  productList.append(product);
+                              }
+                              cartfooter.removeClass('hide');
+                              productList.removeClass('hide');
+                              cartempty.addClass('hide');
+                              productList.slimScroll({
+                                height: e.length > 1 ? '262px' : '100%'
+                              });
+                            } else {
+                                cartempty.removeClass('hide');
+                                cartfooter.addClass('hide');
+                                productList.addClass('hide');
+                            }
+
+
+
+           },
+           error:function(){
+              // alert("error!!!!");
+        }
+
+        });
+
+
 }
+

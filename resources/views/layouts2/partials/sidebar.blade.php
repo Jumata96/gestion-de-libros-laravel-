@@ -109,6 +109,7 @@
             </ul>
           </div>
         </li>
+
         <li class="bold">
           <a class="collapsible-header waves-effect waves-cyan">
           <i class="material-icons">web</i>
@@ -127,18 +128,18 @@
                       <ul style="padding-left:20px;">
                         <li ><a href="{{ url('/seccion1') }}" class="waves-effect waves-default" style="padding-right: 20px;">Secci&oacute;n 01</a></li>
                       </ul>
-                      <ul style="padding-left:20px;">
+                      {{-- <ul style="padding-left:20px;">
                         <li ><a href="{{ url('/seccion02') }}" class="waves-effect waves-default" style="padding-right: 20px;">Secci&oacute;n 02</a></li>
+                      </ul> --}}
+                      <ul style="padding-left:20px;">
+                        <li ><a href="{{ url('/seccion03') }}" class="waves-effect waves-default" style="padding-right: 20px;">Logos</a></li>
                       </ul>
                       <ul style="padding-left:20px;">
-                        <li ><a href="{{ url('/seccion03') }}" class="waves-effect waves-default" style="padding-right: 20px;">Secci&oacute;n 03</a></li>
+                        <li ><a href="{{ url('/seccion04') }}" class="waves-effect waves-default" style="padding-right: 20px;">Testimonios</a></li>
                       </ul>
-                      <ul style="padding-left:20px;">
-                        <li ><a href="{{ url('/seccion04') }}" class="waves-effect waves-default" style="padding-right: 20px;">Secci&oacute;n 04</a></li>
-                      </ul>
-                      <ul style="padding-left:20px;">
+                      {{-- <ul style="padding-left:20px;">
                         <li ><a href="{{ url('/seccion05') }}" class="waves-effect waves-default" style="padding-right: 20px;">Secci&oacute;n 05</a></li>
-                      </ul>
+                      </ul> --}}
                     </div>
                   </li>
                                     <li >
@@ -148,27 +149,6 @@
                   </li>
                 </ul>
               </li>
-              {{--
-              <li><a href="{{ url('#') }}">
-                <i class="material-icons">keyboard_arrow_right</i>
-                <span>página de Galería</span>
-                </a>
-              </li>
-              <li><a href="{{ url('#') }}">
-                <i class="material-icons">keyboard_arrow_right</i>
-                <span>página de nosotros</span>
-                </a>
-              </li>
-              <li><a href="{{ url('#') }}">
-                <i class="material-icons">keyboard_arrow_right</i>
-                <span>página de teams</span>
-                </a>
-              </li>
-              <li><a href="{{ url('/mntContactanos') }}">
-                <i class="material-icons">keyboard_arrow_right</i>
-                <span> página de Contactanos</span></a>
-              </li>
-              --}}
             </ul>
           </div>
         </li>

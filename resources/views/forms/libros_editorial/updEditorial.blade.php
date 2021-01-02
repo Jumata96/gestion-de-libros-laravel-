@@ -1,5 +1,5 @@
 @extends('layouts2.app')
-@section('titulo','Registrar Zona')
+@section('titulo','Registrar Editorial')
 
 @section('main-content')
 <br>
@@ -29,7 +29,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="codigo" value="{{$editorial->codigo}}">
                     
-                    <div class="col s12 m12 l12 ">
+                    <div class="col s12 m12 l6 ">
                       <div class="collapsible-header light-blue light-blue-text text-lighten-5 active">
                 <i class="material-icons">attach_file</i> 
                 Datos Generales</div>
@@ -37,57 +37,55 @@
                         <div class="card-content"> 
                             <div class="row">
                                 
-                              <div class="input-field col s12 m6 l6">
+                              <div class="input-field col s12 m6 l12">
                                 <i class="material-icons prefix">assignment</i>
                                 <input id="nombre" name="nombre" value="{{$editorial->nombre}}" type="text" data-error=".error2" maxlength="200" >
                                 <label for="nombre"> Nombre de Editorial</label>
                                 <div id="error1" style="padding-left: 3rem; color: red; font-size: 12px; font-style: italic;"></div>
                               </div>  
-                              <div class="input-field col s12 m6 l6">
+                              <div class="input-field col s12 m6 l12">
                                 <i class="material-icons prefix">assignment</i>
                                 <input id="dsCorta" maxlength="5" name="dsCorta" value="{{$editorial->dsc_corta}}" type="text" data-error=".errorTxt4" >
                                 <label for="dsCorta">Ds.Corta</label>
                                  <div id="error3" style="padding-left: 3rem; color: red; font-size: 12px; font-style: italic;"></div>
-                              </div>   {{-- 
-                              <div class="input-field col s12 m6 l6">
-                                  <i class="material-icons prefix">call</i>
-                                  <input id="telefono" name="telefono" type="text" maxlength="20">
-                                  <label for="telefono">Telefono</label>
-                                   <div id="error4" style="padding-left: 3rem; color: red; font-size: 12px; font-style: italic;"></div>
                               </div> 
-                              <div class="input-field col s12 m6 l6" style="padding-top: 20px;">
-                                  <i class="material-icons prefix" style="padding-bottom: 50px;">email</i>
-                                  <input id="email" name="email" type="text">
-                                  <label for="email">Email</label>
-                                   <div id="error5" style="padding-left: 3rem; color: red; font-size: 12px; font-style: italic;"></div>
-                              </div>  --}}
                           						 
-                              <div class="input-field col s12 m6 l6">
+                              <div class="input-field col s12 m6 l12">
                                 <i class="material-icons prefix">comment</i>
                                 <label for="glosa">Glosa</label>
                                 <textarea  class="materialize-textarea" name="glosa" rows="1" cols="2"> {{$editorial->descripcion}}
                                 </textarea>
                                   <div id="error6" style="padding-left: 3rem; color: red; font-size: 12px; font-style: italic;"></div>
-                              </div>   
-                              {{-- <div class=" col s12">
-                                 <div id="error7" style="padding-left: 3rem; color: red; font-size: 12px; font-style: italic;"></div>
-                                  <div class="col l1">
-                                    <i class="material-icons prefix" style="padding-bottom: 20px;">event_available</i>
-                                  </div>
-                                  <div class="col l11"> 
-                                    <label for="servicios" class="">Servicios</label> 
-                                  </div>
-                                  <div class="col l12"> 
-                                  <textarea class="ckeditor" name="editor1"   id="editor1" rows="10" cols="80" > </textarea>
-                                    <input type="hidden" id="servicios"  name="servicios" value=""> 
-                                  </div> 
-                               </div> --}}
-                               
+                              </div>    
                             </div>
 
                         </div>
                       </div>
                     </div>
+          <div class="col s12 m6 l6">
+            <div class="collapsible-header light-blue light-blue-text text-lighten-5 active">
+              <i class="material-icons">attach_file</i> 
+              Datos de Contacto
+            </div>
+            <div class="card white">
+              <div class="card-content">
+                <div class="row">
+                  <div class="input-field col s12 m6 l12">
+                    <i class="material-icons prefix">email</i>
+                    <input id="email" name="email" type="text" data-error=".error2" maxlength="200"value="{{$editorial->correo}}"  >
+                    <label for="email"> Correo</label>
+                    <div id="error7" style="padding-left: 3rem; color: red; font-size: 12px; font-style: italic;"></div>
+                  </div>
+                  <div class="input-field col s12 m6 l12">
+                    <i class="material-icons prefix">call</i>
+                    <input id="telefono"   name="telefono" type="text" data-error=".errorTxt4" value="{{$editorial->telefono}}" >
+                    <label for="telefono">Telefono</label>
+                    <div id="error8" style="padding-left: 3rem; color: red; font-size: 12px; font-style: italic;"></div>
+                  </div>  
+                </div>
+              </div>
+            </div>
+          </div>
                     
                    
                   </div>

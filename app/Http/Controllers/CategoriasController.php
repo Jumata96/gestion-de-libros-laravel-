@@ -51,7 +51,7 @@ class CategoriasController extends Controller
     }
     public function show($id){
 
-        $categorias = DB::table('libro_categoria')->where('estado',intval($id))->get();
+        $categorias = DB::table('libro_categoria')->where('codigo',intval($id))->get();
 
             //dd($areas);
             return view('forms.libros_categoria.updCategoria',[

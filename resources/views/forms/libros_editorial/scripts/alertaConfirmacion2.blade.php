@@ -6,7 +6,7 @@
 	</div>
 	<div class="modal-footer indigo lighten-4">
 		<a href="#" class="waves-effectwaves-light btn-flat modal-action modal-close">Cancelar</a>
-		<a href="{{url('/Avisos/desabilitar')}}/{{$datos->codigo}}"class="waves-effect waves-light btn-flat modal-action modal-close" id="d{{$datos->codigo}}" data-iddesabilitar="{{$datos->codigo}}">Aceptar</a>
+		<a href="{{url('/editorial/desabilitar')}}/{{$datos->codigo}}"class="waves-effect waves-light btn-flat modal-action modal-close" id="d{{$datos->codigo}}" data-iddesabilitar="{{$datos->codigo}}">Aceptar</a>
 	</div>
 </div>
 

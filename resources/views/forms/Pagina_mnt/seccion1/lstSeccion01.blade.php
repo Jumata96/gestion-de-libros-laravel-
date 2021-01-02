@@ -109,9 +109,9 @@
 													 @endif
 												  </td>
 											  </tr> 
-											  @include('forms.libros.scripts.alertaConfirmacion') 
-											  @include('forms.libros.scripts.alertaConfirmacion2') 
-											  @include('forms.libros.scripts.alertaConfirmacion3') 
+											  @include('forms.inicio.seccion1.scripts.alertaConfirmacion') 
+											  @include('forms.inicio.seccion1.scripts.alertaConfirmacion2') 
+											  @include('forms.inicio.seccion1.scripts.alertaConfirmacion3')  
 
 											  <?php }} ?>
 										  </tbody>

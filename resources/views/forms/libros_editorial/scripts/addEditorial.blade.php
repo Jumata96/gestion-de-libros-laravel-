@@ -24,6 +24,10 @@
 			( typeof data.nombre != "undefined" )? $('#error1').text(data.nombre) && $('#nombre').focus() : null; 
 			 ( typeof data.dsCorta != "undefined" )? $('#error3').text(data.dsCorta) : null; 
 			// ( typeof data.nombre != "undefined" )? $('#error2').text(data.nombre) : null; 
+			 ( typeof data.email != "undefined" )? $('#error7').text(data.email) : null; 
+			 ( typeof data.telefono != "undefined" )? $('#error8').text(data.telefono) : null; 
+
+
 						
 		  } else {    
 					  window.location="{{ url('/lstEditoriales') }}";

@@ -43,7 +43,7 @@ class SeccionController extends Controller
             return response()->json($var);
         }
         $url_imagen =null;
-         $url_imagen = Storage::disk('public')->put('imagenes', $request->file('imagenSec'));
+         $url_imagen = Storage::disk('public')->put('imagenes2', $request->file('imagenSec'));
 
         DB::table('inicio_seccion_det')
         ->insert([

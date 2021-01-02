@@ -29,7 +29,7 @@
       console.log(data);
       if (data.success)
         //$avatarImage.attr('src', data.path);
-        window.location = "{{ url('/inicio') }}";
+        window.location = "{{ url('/carrusel') }}";
 
     }).fail(function () {
       alert('La imagen subida no tiene un formato correcto');

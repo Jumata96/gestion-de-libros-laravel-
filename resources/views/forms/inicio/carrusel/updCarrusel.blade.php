@@ -19,7 +19,7 @@
                           </a>   
                           <a style="margin-left: 6px"></a>   
                           
-                          <a href="{{url('/inicio')}}" class="btn-floating right waves-effect waves-light grey lighten-5 tooltipped" href="#!" data-activates="dropdown2" data-position="top" data-delay="500" data-tooltip="Regresar">
+                          <a href="{{url('/carrusel')}}" class="btn-floating right waves-effect waves-light grey lighten-5 tooltipped" href="#!" data-activates="dropdown2" data-position="top" data-delay="500" data-tooltip="Regresar">
                             <i class="material-icons" style="color: #424242">keyboard_tab</i></a>            
                         </div>  
 
@@ -75,71 +75,10 @@
 
                             <div class="row">
                              
-                              <div class="col s12">
-                                <div class="input-field col s12">
-                                 <div id="estado" class="badge green lighten-5 green-text text-accent-4 col s12 m6 l4 offset-m6 offset-l8">
-                                    ESTADO:<b> ACTIVO</b>
-                                    <i class="material-icons"></i>
-                                  </div>
-                                </div>                                   
+                              <div class="col s12">       
                                 <div class="col s12">
                                   <div class="input-field col s12 m6 l8">                                  
-                                    <p>Seleccione el tipo de alineación del contenido a mostrar</p>                                  
-                                  </div>  
-                                  
-                                  <div class="col s12 m6 l4">
-                                    <label for="idmodelo">Alineación</label>
-                                    <select id="alineacion" class="browser-default" name="alineacion" data-error=".errorTxt1"> 
-                                      <option value="" disabled="">Seleccionar</option>
-                                      @switch($datos->alineacion)      
-                                      @case('center-align')                              
-                                        <option value="center-align" selected="">CENTRO</option>
-                                        <option value="left-align">IZQUIERDA</option>
-                                        <option value="right-align">DERECHA</option>
-
-                                        @break
-                                      @case('left-align')                              
-                                        <option value="center-align">CENTRO</option>
-                                        <option value="left-align" selected="">IZQUIERDA</option>
-                                        <option value="right-align">DERECHA</option>
-
-                                        @break
-                                      @case('right-align')                              
-                                        <option value="center-align">CENTRO</option>
-                                        <option value="left-align">IZQUIERDA</option>
-                                        <option value="right-align" selected="">DERECHA</option>
-
-                                        @break
-                                      @endswitch
-                                      
-                                    </select> 
-                                  </div>           
-                                </div>       
-                                {{-- <div class="col s12" style="padding-bottom: 10px; padding-top: 10px">
-                                  <div class="input-field col s12 m6 l8">                                  
-                                    <p>Seleccione el margen del contenido con respecto a la cabecera de la página web</p>                                  
-                                  </div>  
-                                  
-                                  <div class="col s12 m6 l4">
-                                    <label for="idmodelo">Margen en píxeles</label>
-                                    <p class="range-field">
-                                      <input type="range" name="padding_top" min="15" max="200" value="{{$datos->padding_top}}" class="active">
-                                    </p>
-                                  </div>           
-                                </div>    --}} 
-                                {{-- <div class="col s12" style="padding-bottom: 10px; padding-top: 10px"> 
-                                  <div class="input-field col s12 m6 l8">                                  
-                                    <p>Ingrese el código de un color que se muestra en la sección de la paleta de colores</p>
-                                  </div>                                    
-                                  <div class="col s12 m6 l4">
-                                    <label for="color">Color</label>
-                                    <input id="color" name="color" type="text" data-error=".errorTxt2" minlength="7" maxlength="100" value="{{$datos->color}}">
-                                    
-                                  </div> 
-                                </div>  --}}    
-                                <div class="col s12">
-                                  <div class="input-field col s12 m6 l8">                                  
-                                    <p>Mostrar botón para la redirección del contenido mostrado</p>                                  
+                                    <p>Activar la redirección del contenido mostrado</p>                                  
                                   </div>  
                                   
                                   <div class="col s12 m6 l4">
@@ -157,32 +96,12 @@
                                     </select> 
                                   </div>           
                                 </div>     
-                               {{--  <div class="col s12" style="padding-bottom: 10px; padding-top: 10px"> 
-                                  <div class="input-field col s12 m6 l8">                                  
-                                    <p>Ingrese el código de un color que se muestra en la sección de la paleta de colores para el botón </p>
-                                  </div>                                    
-                                  <div class="col s12 m6 l4">
-                                    <label for="btn_color">Color</label>
-                                    <input id="btn_color" name="btn_color" type="text" data-error=".errorTxt2" minlength="7" maxlength="100" value="{{$datos->btn_color}}">
-                                    
-                                  </div> 
-                                </div>  --}}    
                                 <div class="col s12" style="padding-bottom: 10px; padding-top: 10px"> 
                                   <div class="input-field col s12 m6 l8">                                  
-                                    <p>Ingrese el texto para mostrar en  el botón</p>
+                                    <p>Ingrese el código del Libro para realizar el enlace con el botón</p>
                                   </div>                                    
                                   <div class="col s12 m6 l4">
-                                    <label for="btn_text">Texto</label>
-                                    <input id="btn_text" name="btn_text" type="text" data-error=".errorTxt2" minlength="7" maxlength="100" value="{{$datos->btn_text}}">
-                                    
-                                  </div> 
-                                </div>    
-                                <div class="col s12" style="padding-bottom: 10px; padding-top: 10px"> 
-                                  <div class="input-field col s12 m6 l8">                                  
-                                    <p>Ingrese el código del curso para realizar el enlace con el botón</p>
-                                  </div>                                    
-                                  <div class="col s12 m6 l4">
-                                    <label for="btn_idprod">Cod. Curso</label>
+                                    <label for="btn_idprod">Cod. Libro</label>
                                     <input id="btn_idprod" name="btn_idprod" type="text" data-error=".errorTxt2" minlength="7" maxlength="100" value="{{$datos->btn_idprod}}">
                                     
                                   </div> 
@@ -212,7 +131,7 @@
               </div>
   </div>
 </div>
-@include('forms.inicio.carrusel.modalAddCursos')
+@include('forms.inicio.carrusel.modalAddLibros')
 @endforeach
 @endsection
 

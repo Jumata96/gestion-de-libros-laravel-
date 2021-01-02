@@ -1,47 +1,107 @@
-<script type="text/javascript">
-	//---JMAZUELOS-24-06-2020----------------GRABAR-----------------------------
- 
- $('#updLibros').click(function(e){
-	e.preventDefault(); 
-	var data = $('#myForm').serializeArray();  
-	$.ajax({
-		url: "{{ url('/libros/actualizar') }}",
-		type:"POST",
-		beforeSend: function (xhr) {
-			 var token = $('meta[name="csrf-token"]').attr('content');
+ <script>
+		/* JMAZUELOS 21-12-2020 */
+	$('#updLibros').click(function(e){
+	  e.preventDefault();
+			console.log('igreso');
+	  var $Input, $myForm;
+       // $Input = $('#archivo');
+        $myForm = $('#myForm');
+		  				var formData = new FormData(); 
+								// console.log($('#file_caratula')[0].files[0]);
+								// formData.append('caratula', $('#file_caratula')[0].files[0]); 
+								// formData.append('caratula', $('#caratula')[0].files[0]);
+								formData.append('caratula', $('#caratula')[0].files[0]);
+		  $.ajax({
+				beforeSend: function (xhr) {
+					 var token = $('meta[name="csrf-token"]').attr('content');
+					 if (token) {
+							 return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+					 }
+				},
+				url: "{{ url('/libros/actualizar') }}" + '?' + $myForm.serialize(),
+				method: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false, 
+        success:function(data){ 
+          if ( data[0] == "error") {
+            $('#h_error1').text('');
+            ( typeof data.nombre != "undefined" )? $('#error1').text(data.nombre) && $('#nombre').focus() : null;
+												( typeof data.ISBM != "undefined" )? $('#error2').text(data.ISBM) : null;
+												( typeof data.precio != "undefined" )? $('#error3').text(data.precio) : null;
+												( typeof data.ejemplares != "undefined" )? $('#error4').text(data.ejemplares) : null;
+												( typeof data.paginas != "undefined" )? $('#error5').text(data.paginas) : null;
+												( typeof data.Idioma != "undefined" )? $('#error6').text(data.Idioma) : null;
+												( typeof data.idCategoria != "undefined" )? $('#error7').text(data.idCategoria) : null;
+												( typeof data.idEditorial != "undefined" )? $('#error8').text(data.idEditorial) : null;
+												( typeof data.glosa != "undefined" )? $('#error9').text(data.glosa) : null;
+												( typeof data.caratula != "undefined" )? $('#h_error1').text(data.caratula) : null; 
 
-			 if (token) {
-					 return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+          } else {
+            setTimeout(function() {
+              Materialize.toast('<span>Registro exitoso</span>', 1500);
+            }, 100);
+              window.location="{{ url('/lstLibros') }}";
+
+          }
+
+        },
+				 error:function(){
+					 $('#h_error1').text('');
+						$('#h_error2').text('');
 			 }
-		},
-	  type:'POST',
-	  url:"{{ url('/libros/actualizar') }}",
-	  data:data,
-
-	  success:function(data){
-		  
-		  if ( data[0] == "error") {
-			( typeof data.nombre != "undefined" )? $('#error1').text(data.nombre) && $('#nombre').focus() : null;
-			 ( typeof data.ISBM != "undefined" )? $('#error2').text(data.ISBM) : null;
-			 ( typeof data.precio != "undefined" )? $('#error3').text(data.precio) : null;
-			 ( typeof data.ejemplares != "undefined" )? $('#error4').text(data.ejemplares) : null;
-			 ( typeof data.paginas != "undefined" )? $('#error5').text(data.paginas) : null;
-			 ( typeof data.Idioma != "undefined" )? $('#error6').text(data.Idioma) : null;
-			 ( typeof data.idCategoria != "undefined" )? $('#error7').text(data.idCategoria) : null;
-			 ( typeof data.idEditorial != "undefined" )? $('#error8').text(data.idEditorial) : null;
-			 ( typeof data.glosa != "undefined" )? $('#error9').text(data.glosa) : null; 
-						
-		  } else {    
-			  window.location="{{ url('/lstLibros') }}";
-
-		  }
-		  
-	  },
-
-	  error:function(){ 
-		  alert("error!!!!");
-  }
-  });  
- });    
-
+		  })
+	});
 </script>
+ <script>
+		/* JMAZUELOS 21-12-2020 */
+	$('#addLibroImagenes').click(function(e){
+	  e.preventDefault();
+			// console.log('igreso');
+	  var $Input, $myForm2;
+       // $Input = $('#archivo');
+        $myForm2 = $('#myFormLibro');
+								console.log($myForm2);
+		  				var formData2 = new FormData(); 
+												var archivos =$('#archivos')[0].files;
+												console.log( archivos.length );
+												for (var i = 0; i < archivos.length; i++) {
+																formData2.append('archivo'+i, $('#archivos')[0].files[i]);
+												}
+																formData2.append('imagenes_mun', archivos.length);
+																formData2.append('codigo_libro', $('#libro_id').val());
+										$.ajax({
+										beforeSend: function (xhr) {
+												var token = $('meta[name="csrf-token"]').attr('content');
+												if (token) {
+														return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+												}
+										},
+										url: "{{ url('libros/grabar-imagenes') }}" + '?' + $myForm2.serialize(),
+										method: 'POST',
+										data: formData2,
+										processData: false,
+										contentType: false, 
+														success:function(data){ 
+																if ( data[0] == "error") {
+																		$('#h_error10').text(''); 
+																		( typeof data.caratula != "undefined" )? $('#h_error1').text(data.caratula) : null;  
+																} else {
+																		setTimeout(function() {
+																				Materialize.toast('<span>Registro exitoso</span>', 1500);
+																		}, 100);
+																		
+																				 window.location="{{ url('/libros-mostrar') }}"+"-"+parseInt(data.codigo);
+
+																}
+
+														},
+											error:function(){
+												$('#h_error1').text('');
+												$('#h_error2').text('');
+										}
+										})
+	});
+</script>
+
+ 

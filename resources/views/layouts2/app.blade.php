@@ -9,7 +9,7 @@
 @endif
 
   <body style="background-color: #f5f9f9">
-    <div id="app">
+    {{-- <div id="app"> --}}
         @if(Auth::user()->idtipo === 'ADM' OR empty(Auth::user()) )
             @include('layouts2.partials.header')
              {{-- <notificaciones></notificaciones> --}}
@@ -52,7 +52,7 @@
             @include('layouts3.partials.footer')
             @include('layouts3.partials.scripts')
         @endif
-    </div>
-<script src="{{asset('js/appI.js')}}"></script>
+    {{-- </div> --}}
+
   </body>
 </html>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use  Illuminate\Support\Facades\DB;
 use Validator;
 use Auth;
 use Storage;
@@ -14,7 +14,7 @@ class EditorialController extends Controller
     public function index()
     {
 
-        $Editoriales = DB::table('libro_Editorial')->whereIn('estado',[1,2])->get();
+        $Editoriales = DB::table('libro_editorial')->whereIn('estado',[1,2])->get();
 
         return view('forms.libros_editorial.lstEditorial', [
             'Editoriales'	=> $Editoriales,
@@ -37,7 +37,7 @@ class EditorialController extends Controller
             array_push($var, 'error');
             return response()->json($var);
         }
-        DB::table('libro_Editorial')
+        DB::table('libro_editorial')
         ->insert([
             'nombre'            => $request->nombre,
             'descripcion'       => $request->glosa,
@@ -51,7 +51,7 @@ class EditorialController extends Controller
     }
     public function show($id){
 
-         $Editoriales = DB::table('libro_Editorial')->where('codigo', $id)->get();
+         $Editoriales = DB::table('libro_editorial')->where('codigo', $id)->get();
             //dd($areas);
             return view('forms.libros_editorial.updEditorial',[
                 'Editoriales' =>$Editoriales
@@ -72,7 +72,7 @@ class EditorialController extends Controller
             return response()->json($var);
         }
 
-        DB::table('libro_Editorial')
+        DB::table('libro_editorial')
         ->where('codigo',intval($request->codigo))
         ->update([
             'descripcion'       => $request->glosa,
@@ -86,7 +86,7 @@ class EditorialController extends Controller
     public function destroy($id)
     {
 
-        DB::table('libro_Editorial')
+        DB::table('libro_editorial')
         ->where('codigo',intval($id))
         ->update([
             'estado'            => '3',
@@ -95,7 +95,7 @@ class EditorialController extends Controller
     }
     public function habilitar ($id){
         //dd($id);
-        DB::table('libro_Editorial')
+        DB::table('libro_editorial')
         ->where('codigo',intval($id))
         ->update([
             'estado'            => '1',
@@ -104,7 +104,7 @@ class EditorialController extends Controller
 
     }
     public function desabilitar ($id){
-        DB::table('libro_Editorial')
+        DB::table('libro_editorial')
         ->where('codigo',intval($id))
         ->update([
             'estado'            => '2',

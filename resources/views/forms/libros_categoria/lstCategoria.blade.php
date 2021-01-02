@@ -1,83 +1,83 @@
 @extends('layouts2.app')
 @section('titulo','Categorias')
 
-@section('main-content') 
+@section('main-content')
 
 <div class="row">
 	<br>
 	<div class="col s12 m12 l12">
 					  <div class="card">
-						 <div class="card-header">                    
+						 <div class="card-header">
 							<i class="fa fa-table fa-lg material-icons">receipt</i>
 							<h2>LISTA DE CATEGORIAS</h2>
 						 </div>
-						
+
 						 <div class="card-header" style="height: 50px; padding-top: 5px; background-color: #f6f6f6">
 								 <div class="col s12 m12">
 									<a class="btn-floating waves-effect waves-light grey lighten-5 tooltipped" href="{{ url('categoria-nuevo') }}" data-position="top" data-delay="500" data-tooltip="Nuevo">
 									  <i class="material-icons" style="color: #03a9f4">add</i>
 									</a>
-									<a style="margin-left: 6px"></a>                          
-																			  
-								 </div>  
-								    
+									<a style="margin-left: 6px"></a>
+
+								 </div>
+
 						 </div>
-												 
+
 						 <div class="row cuerpo">
-							<?php 
- 
+							<?php
+
 							  $bandera = false;
- 
+
 							  if (count($categorias) > 0) {
 								 # code...
 								 $bandera = true;
 								 $i = 0;
 							  }
- 
+
 							?>
- 
+
 						 <br>
 						 <div class="row">
 							<div class="col s12 m12 l12">
-							  
+
 								 <div class="card-content">
 									Existen <?php echo ($bandera)? count($categorias) : 0; ?> registros. <br><br>
 									<table id="data-table-simple" class="responsive-table display" cellspacing="0">
 										  <thead>
 											  <tr>
-												  <th>#</th> 
+												  <th>#</th>
 												  <th>Nombre</th>
-												  <th>Des.corta</th> 
+												  <th>Des.corta</th>
 												  <th>Fecha creación</th>
 												  <th>Estado</th>
 												  <th>Acción</th>
 											  </tr>
 										  </thead>
 										  <?php
-												 if($bandera){                                                           
+												 if($bandera){
 											?>
 										  <tfoot>
 											  <tr>
-												  <th>#</th> 
+												  <th>#</th>
 												  <th>Nombre</th>
-												  <th>Des.corta</th> 
+												  <th>Des.corta</th>
 												  <th>Fecha creación</th>
 												  <th>Estado</th>
 												  <th>Acción</th>
 											  </tr>
 											</tfoot>
- 
+
 										  <tbody>
 											<tr>
-											  <?php 
+											  <?php
 													foreach ($categorias as $datos) {
 													$i++;
-													$e=0; 
+													$e=0;
 												?>
 														<td><?php echo $i; ?></td>
 														<td>{{$datos->nombre}}</td>
-														<td>{{$datos->dsc_corta}}</td> 
-														<td>{{$datos->fecha_creacion}}</td> 
+														<td>{{$datos->dsc_corta}}</td>
+														<td>{{$datos->fecha_creacion}}</td>
 														<td>
 														@if($datos->estado == 2)
 														<div id="u_estado" class="chip center-align" style="width: 70%">
@@ -94,11 +94,11 @@
 												  <td class="center" style="width: 9rem">
 													 <a href="{{ url('/categoria-mostrar') }}-{{$datos->codigo}}" class="btn-floating waves-effect waves-light grey lighten-5 tooltipped" data-position="top" data-delay="500" data-tooltip="Ver">
 													  <i class="material-icons" style="color: #7986cb ">visibility</i>
-													</a>                                       
+													</a>
 													 <a href="#confirmacion{{$i}}" class="btn-floating waves-effect waves-light grey lighten-5 tooltipped modal-trigger" data-position="top" data-delay="500" data-tooltip="Eliminar">
 													  <i class="material-icons" style="color: #dd2c00">remove</i>
 													</a>
-													@if($datos->estado == 1)                                      
+													@if($datos->estado == 1)
 													 <a href="#h_confirmacion2{{$datos->codigo}}" class="btn-floating waves-effect waves-light grey lighten-5 tooltipped modal-trigger" data-position="top" data-delay="500" data-tooltip="Desabilitar">
 													  <i class="material-icons" style="color: #757575 ">clear</i></a>
 													 @else
@@ -106,25 +106,25 @@
 													  <i class="material-icons" style="color: #2e7d32 ">check</i></a>
 													 @endif
 												  </td>
-											  </tr> 
-											  @include('forms.libros_categoria.scripts.alertaConfirmacion') 
-											  @include('forms.libros_categoria.scripts.alertaConfirmacion2') 
-											  @include('forms.libros_categoria.scripts.alertaConfirmacion3') 
+											  </tr>
+											  @include('forms.libros_categoria.scripts.alertaConfirmacion')
+											  @include('forms.libros_categoria.scripts.alertaConfirmacion2')
+											  @include('forms.libros_categoria.scripts.alertaConfirmacion3')
 
 											  <?php }} ?>
 										  </tbody>
 									  </table>
 									</div>
-							
+
 						 </div>
- 
+
 						 </div>
 					  </div>
 					</div>
  </div>
 
 
- 
+
 @endsection
 
- 
+

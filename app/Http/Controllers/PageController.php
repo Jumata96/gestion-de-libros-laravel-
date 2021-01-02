@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection as Collection;
-use InnovaTec\Events\MessageStatusChangedEvent;
-use  Illuminate\Support\Facades\DB;
+use App\Events\MessageStatusChangedEvent;
+use DB;
 use Auth;
 use Validator;
 
@@ -18,6 +18,10 @@ class PageController extends Controller
     {
 
          $carrusel = DB::table('carrusel')->whereIn('estado',[1,2])->get();
+         $libro_categoria = DB::table('libro_categoria')->whereIn('estado',[1,2])->get();
+         $libro_imagenes = DB::table('libro_imagenes')->whereIn('estado',[1,2])->get();
+         $libro = DB::table('libro')->whereIn('estado',[1,2])->get();
+
 
          $inicio_seccion_det01 = DB::table('inicio_seccion_det')
                     ->where([
@@ -36,8 +40,37 @@ class PageController extends Controller
                         ['id_seccion','=','SEC5'],['estado','=',1]
                     ])->get();
 
+        /* $identificador_carrito = session('idCarrito'); */
+
+
+        if( session()->get('visitante') == null){
+            $key = new MaestroController();
+            session(['visitante' => $key->codigoNumero(20)]);
+        }
+         $identificadorCliente = session()->get('visitante');
+        //   dd($identificadorCliente);
+        //  dd($identificadorCliente);
+        // consultamos si tiene datos en carrito
+        $carrito = DB::table('carrito')->where('idcliente',$identificadorCliente )->get();
+        $idcarrito=null;
+        $total=null;
+            foreach($carrito as $car){
+                $idcarrito=$car->idcarrito;
+                $total=$car->total;
+            }
+            if( $total==null){
+                 $total=0;
+            }
+        $carritoDet = DB::table('dcarrito')->where('idcarrito',$idcarrito)->get();
+        // dd($carritoDet);
+
         return view('forms.pagina.inicio',[
             'carrusel'	=> $carrusel,
+            'libro_categoria'	=> $libro_categoria,
+            'libro_imagenes'	=> $libro_imagenes,
+             'total'	=> $total,
+            'carritoDet'	=> $carritoDet,
+            'libro'	=> $libro,
             'inicio_seccion_det01'=>$inicio_seccion_det01,
             'inicio_seccion_det03'=>$inicio_seccion_det03,
             'inicio_seccion_det04'=>$inicio_seccion_det04,

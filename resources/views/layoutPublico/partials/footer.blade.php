@@ -40,22 +40,20 @@
                       <div id="ishistoreinfo-container" class="ishistoreinfo-inner col-md-3 col-sm-12 col-xs-12">
                         <div id="ishistoreinfo" class=" footer-dropdown">
                           <div class="store-img">
-                            <div class="feature-row__item">
-                              <div class="feature-row__image-wrapper js">
-                                <div class="img-block">
-                                  <a href="/">
+                            <center>
+                              <div class="feature-row__item">
+                                <div class="feature-row__image-wrapper js">
+                                  <a href="/" class="header__logo-image">
                                   <img 
-                                    class="feature-row__image"
-                                    src="//cdn.shopify.com/s/files/1/0267/2073/1222/files/Logo_3904bb5d-8e2a-42a9-b5d2-028729642c79_170x50.png?v=1602322121"
-                                    data-src=""
-                                    data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
-                                    data-aspectratio="3.4"
-                                    data-sizes="auto"
-                                    alt="">
+                                    class="feature-row__image" 
+                                    src="{{url('storage/logo/logo.png')}}"
+                                    alt=""
+                                    style="max-width: 90px;width: 80px;">
+                                  <b>La Casa del Derecho</b>
                                   </a>
                                 </div>
                               </div>
-                            </div>
+                            </center>
                           </div>
                           <div class="store-desc">
                             <p>Sit amet conse ctetur adipisicing elit, sed doe eiusmod tempor incididunt ut laborea aaaeht dolore magna aliqua.</p>

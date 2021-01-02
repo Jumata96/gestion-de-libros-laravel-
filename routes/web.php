@@ -1,8 +1,7 @@
 <?php
-
-use InnovaTec\Events\MessageStatusChangedEvent;
+ 
+use InnovaTec\Events\MessageStatusChangedEvent; 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,8 +13,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 //Ruta para acceder a la Pagina Web
-Route::get('/', 'PageController@index2');
-Route::get('/1', 'PageController@index2');
+Route::get('/', 'PageController@index2');   
+Route::get('/1', 'PageController@index2');  
 /* Route::get('/index', 'PaginaController@index'); */
 Route::get('/index2', 'PageController@index');
 Route::get('/contactanos', 'PageController@contactanos');
@@ -23,7 +22,7 @@ Route::post('/constactanos/mensaje', 'PageController@store');
 //Contactanos
 Route::post('/mensajes/grabar', 'ContactanosController@storeMensajes');
 //NOSOTROS
-Route::get('nosotros', 'PaginaController@nosotros');
+Route::get('nosotros', 'PaginaController@nosotros'); 
 //Gestion de Acceso al Cliente
 Route::get('/usuarioLogin', 'ClienteController@inicio');
 Route::get('/portal-usuario', 'ClienteController@portal');
@@ -39,15 +38,22 @@ Route::view('/registrar', 'auth.register');
 Route::get('/home', 'HomeController@index')->name('home');
 //Metodo que cierra la sesion del usuario
 Route::get('/cerrar', 'HomeController@cerrar');
-//Pruebas Exportar/Importar
+//Pruebas Exportar/Importar 
 //API SOCIAL LOGIN
 Route::get('auth/{provider}', 'Auth\SocialAuthController@redirectToProvider')->name('social.auth');
 Route::get('auth/{provider}/callback', 'Auth\SocialAuthController@handleProviderCallback');
 //Rutas de Prueba y Testeo
 Route::view('mantenedor', 'forms.plantillas.mntBasico');
 Route::view('plantilla', 'forms.test.plantilla');
+
+
+    // libro carrito 
+    Route::post('/libros/pedido', 'LibrosController@pedido');
+
+
+    
 Auth::routes();
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () { 
     //Empresa
     Route::get('/empresa', 'EmpresaController@index');
     Route::get('/empresa/nuevo', 'EmpresaController@create');
@@ -77,13 +83,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/inbox', 'MailController@obtenerMensajes');
     Route::get('/outbox', 'MailController@obtenerMensajesSalida');
     Route::get('/inboxhistorial', 'MailController@obtenerMensajesHistorial');
-    Route::get('/mensajesNuevos', 'MailController@obtenerMensajesNuevos');
+    Route::get('/mensajesNuevos', 'MailController@obtenerMensajesNuevos'); 
     Route::get('/inbox/visto/{id}', 'MailController@visto');
     Route::get('/inbox/{id}', 'MailController@detalle');
     Route::get('/outbox/{id}', 'MailController@detalleSalida');
     Route::get('/inboxUser/{id}', 'MailController@detalleNuevoUsuario');
-
-
+     
+ 
     // mapa autocomplete
     Route::get('/mapa', 'MapaController@mapaPrueba');
     Route::post('/recibir', 'MapaController@recibir');
@@ -94,11 +100,11 @@ Route::group(['middleware' => 'auth'], function () {
      Route::get('/editorial-nuevo', 'EditorialController@create');
     Route::post('/editorial-grabar', 'EditorialController@store');
     Route::get('/editorial-mostrar-{id}', 'EditorialController@show');
-    Route::post('/editorial-actualizar', 'EditorialController@update');
+    Route::post('/editorial-actualizar', 'EditorialController@update'); 
 
-    Route::get('/editorial/eliminar/{id}', 'EditorialController@destroy');
-    Route::get('/editorial/desabilitar/{id}', 'EditorialController@desabilitar');
-    Route::get('/editorial/habilitar/{id}', 'EditorialController@habilitar');
+    Route::get('/editorial/eliminar/{id}', 'EditorialController@destroy'); 
+    Route::get('/editorial/desabilitar/{id}', 'EditorialController@desabilitar'); 
+    Route::get('/editorial/habilitar/{id}', 'EditorialController@habilitar'); 
 
     //Categoria
     Route::get('/lstCategorias', 'CategoriasController@index');
@@ -106,83 +112,100 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/categoria-grabar', 'CategoriasController@store');
     Route::get('/categoria-mostrar-{id}', 'CategoriasController@show');
     Route::post('/categoria-actualizar', 'CategoriasController@update');
-    Route::get('/categoria/eliminar/{id}', 'CategoriasController@destroy');
-    Route::get('/categoria/desabilitar/{id}', 'CategoriasController@desabilitar');
-    Route::get('/categoria/habilitar/{id}', 'CategoriasController@habilitar');
+    Route::get('/categoria/eliminar/{id}', 'CategoriasController@destroy'); 
+    Route::get('/categoria/desabilitar/{id}', 'CategoriasController@desabilitar'); 
+    Route::get('/categoria/habilitar/{id}', 'CategoriasController@habilitar');  
     //Libros
     Route::get('/lstLibros', 'LibrosController@index');
     Route::get('/libros-nuevo', 'LibrosController@create');
     Route::post('/libros/grabar', 'LibrosController@store');
     Route::get('/libros-mostrar-{id}', 'LibrosController@show');
     Route::post('/libros/actualizar', 'LibrosController@update');
+    Route::post('/libros/grabar-imagenes', 'LibrosController@storeImg');
     Route::get('/libros/eliminar/{id}', 'LibrosController@destroy');
     Route::get('/libros/desabilitar/{id}', 'LibrosController@desabilitar');
     Route::get('/libros/habilitar/{id}', 'LibrosController@habilitar');
 
-    // -----------------------------------------------------------------PAGINA -------------------------------------------------
+    Route::get('//libros/elimnar-imagenes/{id}/{codigo}', 'LibrosController@destroyImg');
 
-    Route::get('/inicio', 'InicioController@index');
 
-    //carrusel
-    Route::get('/carrusel', 'CarruselController@index');
+
+
+
+
+    // -----------------------------------------------------------------PAGINA ------------------------------------------------- 
+
+    Route::get('/inicio', 'InicioController@index'); 
+
+    //carrusel 
+    Route::get('/carrusel', 'CarruselController@index'); 
     Route::get('/carrusel-nuevo', 'CarruselController@create');
     Route::post('/carrusel/grabar', 'CarruselController@store');
     Route::get('/carrusel-mostrar-{id}', 'CarruselController@show');
     Route::post('/carrusel/actualizar', 'CarruselController@update');
 
+        Route::get('/carrusel/eliminar/{id}', 'CarruselController@destroy');
+    Route::get('/carrusel/desabilitar/{id}', 'CarruselController@disabled');
+    Route::get('/carrusel/habilitar/{id}', 'CarruselController@habilitar');
 
-    //seccion1
+
+ 
+    //seccion1 
 
      Route::get('/seccion1', 'SeccionController@index01');
      Route::get('/seccion01-nuevo', 'SeccionController@Seccion01');
      Route::post('/seccion01/grabar', 'SeccionController@storeSeccion01');
      Route::get('/seccion01-mostrar-{id}', 'SeccionController@showSeccion01');
-     Route::post('/seccion01/actualizar', 'SeccionController@UpdSeccion01');
-     Route::get('/seccion01/eliminar/{id}', 'SeccionController@destroy');
-     Route::get('/seccion01/desabilitar/{id}', 'SeccionController@desabilitar');
-     Route::get('/seccion01/habilitar/{id}', 'SeccionController@habilitar');
+     Route::post('/seccion01/actualizar', 'SeccionController@UpdSeccion01'); 
+     Route::get('/seccion01/eliminar/{id}', 'SeccionController@destroy'); 
+     Route::get('/seccion01/desabilitar/{id}', 'SeccionController@desabilitar'); 
+     Route::get('/seccion01/habilitar/{id}', 'SeccionController@habilitar'); 
 
 
      Route::get('/seccion03', 'SeccionController@index03');
      Route::get('/seccion03-nuevo', 'SeccionController@seccion03');
      Route::post('/seccion03/grabar', 'SeccionController@storeseccion03');
      Route::get('/seccion03-mostrar-{id}', 'SeccionController@showseccion03');
-     Route::post('/seccion03/actualizar', 'SeccionController@Updseccion03');
-     Route::get('/seccion03/eliminar/{id}', 'SeccionController@destroy_sec03');
-     Route::get('/seccion03/desabilitar/{id}', 'SeccionController@desabilitar_sec03');
-     Route::get('/seccion03/habilitar/{id}', 'SeccionController@habilitar_sec03');
+     Route::post('/seccion03/actualizar', 'SeccionController@Updseccion03'); 
+     Route::get('/seccion03/eliminar/{id}', 'SeccionController@destroy_sec03'); 
+     Route::get('/seccion03/desabilitar/{id}', 'SeccionController@desabilitar_sec03'); 
+     Route::get('/seccion03/habilitar/{id}', 'SeccionController@habilitar_sec03'); 
 
      Route::get('/seccion04', 'SeccionController@index04');
      Route::get('/seccion04-nuevo', 'SeccionController@seccion04');
      Route::post('/seccion04/grabar', 'SeccionController@storeseccion04');
      Route::get('/seccion04-mostrar-{id}', 'SeccionController@showseccion04');
-     Route::post('/seccion04/actualizar', 'SeccionController@Updseccion04');
-     Route::get('/seccion04/eliminar/{id}', 'SeccionController@destroy_sec04');
-     Route::get('/seccion04/desabilitar/{id}', 'SeccionController@desabilitar_sec04');
-     Route::get('/seccion04/habilitar/{id}', 'SeccionController@habilitar_sec04');
+     Route::post('/seccion04/actualizar', 'SeccionController@Updseccion04'); 
+     Route::get('/seccion04/eliminar/{id}', 'SeccionController@destroy_sec04'); 
+     Route::get('/seccion04/desabilitar/{id}', 'SeccionController@desabilitar_sec04'); 
+     Route::get('/seccion04/habilitar/{id}', 'SeccionController@habilitar_sec04'); 
 
      Route::get('/seccion05', 'SeccionController@index05');
      Route::get('/seccion05-nuevo', 'SeccionController@seccion05');
      Route::post('/seccion05/grabar', 'SeccionController@storeseccion05');
      Route::get('/seccion05-mostrar-{id}', 'SeccionController@showseccion05');
-     Route::post('/seccion05/actualizar', 'SeccionController@Updseccion05');
-     Route::get('/seccion05/eliminar/{id}', 'SeccionController@destroy_sec05');
-     Route::get('/seccion05/desabilitar/{id}', 'SeccionController@desabilitar_sec05');
-     Route::get('/seccion05/habilitar/{id}', 'SeccionController@habilitar_sec05');
+     Route::post('/seccion05/actualizar', 'SeccionController@Updseccion05'); 
+     Route::get('/seccion05/eliminar/{id}', 'SeccionController@destroy_sec05'); 
+     Route::get('/seccion05/desabilitar/{id}', 'SeccionController@desabilitar_sec05'); 
+     Route::get('/seccion05/habilitar/{id}', 'SeccionController@habilitar_sec05'); 
 
-    /*
-    Route::get('/inicio', 'InicioController@index');
+     Route::get('/Contactos', 'ContactoController@index');
+    Route::post('/Contactos/actualizar', 'ContactoController@update');
+
+
+    /* 
+    Route::get('/inicio', 'InicioController@index'); 
     //Carrusel
-
+    
     Route::post('/carrusel/grabar', 'CarruselController@store');
-    Route::post('/carrusel/grabar2', 'CarruselController@store');
+    Route::post('/carrusel/grabar2', 'CarruselController@store'); 
     Route::get('/carrusel/mostrar/{id}', 'CarruselController@show');
     Route::post('/carrusel/actualizar', 'CarruselController@update');
 
 
-    Route::get('/carrusel/eliminar/{id}', 'CarruselController@destroy');
-    Route::get('/carrusel/desabilitar/{id}', 'CarruselController@disabled');
-    Route::get('/carrusel/habilitar/{id}', 'CarruselController@habilitar');
+    Route::get('/carrusel/eliminar/{id}', 'CarruselController@destroy'); 
+    Route::get('/carrusel/desabilitar/{id}', 'CarruselController@disabled'); 
+    Route::get('/carrusel/habilitar/{id}', 'CarruselController@habilitar'); 
 
     //SECCION1
      Route::get('/seccion1/mostrar/{id}', 'InicioController@showSeccion1');
@@ -193,7 +216,7 @@ Route::group(['middleware' => 'auth'], function () {
     //SECCION2
     Route::post('/seccion2/grabar', 'Seccion2Controller@store');
     Route::post('/seccion2/grabarD', 'Seccion2Controller@storeD');
-    Route::post('/seccion2/actualizarD', 'Seccion2Controller@actualizarD');
+    Route::post('/seccion2/actualizarD', 'Seccion2Controller@actualizarD'); 
 
     Route::get('/seccion2/mostrar/{id}', 'seccion2Controller@show');
     Route::get('/seccion2/eliminar/{id}', 'seccion2Controller@destroy');
@@ -211,11 +234,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/seccion6Det/actualizar', 'Seccion6Controller@store');
     Route::post('/seccion6Det/actualizarDet', 'Seccion6Controller@update');
-
-    Route::get('/seccion6/mostrar/{id}', 'Seccion6Controller@show');
+    
+    Route::get('/seccion6/mostrar/{id}', 'Seccion6Controller@show'); 
     Route::get('/seccion6Det/eliminar/{id}', 'Seccion6Controller@destroy');
     Route::get('/seccion6Det/desabilitar/{id}', 'Seccion6Controller@desabilitar');
-    Route::get('/seccion6Det/habilitar/{id}', 'Seccion6Controller@habilitar');
+    Route::get('/seccion6Det/habilitar/{id}', 'Seccion6Controller@habilitar'); 
 
     //---------------------------NOSOTROS-------------------------
     //Misión
